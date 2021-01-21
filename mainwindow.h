@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 
 namespace Ui {
@@ -25,6 +26,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QPropertyAnimation *pPosAnimation1;
+    QPropertyAnimation *pPosAnimation2;
+    QPropertyAnimation *pPosAnimation3;
+    QPropertyAnimation *pPosAnimation4;
+    QPropertyAnimation *pPosAnimation5;
     QParallelAnimationGroup *m_group;
 };
 
