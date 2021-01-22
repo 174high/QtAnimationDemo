@@ -18,6 +18,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void setMove();
+
     void on_startButton_clicked();
 
     void on_startButton_2_clicked();
@@ -25,6 +27,15 @@ private slots:
     void on_startButton_3_clicked();
 
 private:
+    int center_line; 
+    int start_line;
+    int end_line;
+    unsigned char interval;
+    unsigned int floor_long;
+    unsigned int floor_width; 
+    unsigned char current_floor; 
+    unsigned char maximum;
+
     Ui::MainWindow *ui;
     QPropertyAnimation *pPosAnimation1;
     QPropertyAnimation *pPosAnimation2;
