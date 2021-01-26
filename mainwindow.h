@@ -19,13 +19,11 @@ public:
 
 private slots:
     void setMove();
-
+    void setMoveUp();
+    void setMoveDown();
     void on_startButton_clicked();
-
     void on_startButton_2_clicked();
-
     void on_startButton_3_clicked();
-
     void on_startButton_4_clicked();
 
 private:
