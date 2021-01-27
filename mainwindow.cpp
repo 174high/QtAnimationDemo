@@ -63,8 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     pPosAnimation1->start();
-//    pPosAnimation2->start();
-//    pPosAnimation3->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
 //    pPosAnimation4->start();
 //    pPosAnimation5->start();
 
@@ -119,7 +119,7 @@ void MainWindow::setMove()
     pPosAnimation1->setStartValue(QPoint(center_line, start_line-interval*0)); 
     pPosAnimation1->setEndValue(QPoint(center_line, end_line));
     pPosAnimation1->setEasingCurve(QEasingCurve::InOutQuad);
-/*
+
     pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
     pPosAnimation2->setDuration(3000);
     pPosAnimation2->setStartValue(QPoint(center_line, start_line-interval*1));
@@ -131,7 +131,7 @@ void MainWindow::setMove()
     pPosAnimation3->setStartValue(QPoint(center_line, start_line-interval*2));
     pPosAnimation3->setEndValue(QPoint(center_line, end_line-interval*2));
     pPosAnimation3->setEasingCurve(QEasingCurve::InOutQuad);
-
+/*
     pPosAnimation4 = new QPropertyAnimation(ui->posButton_4, "pos");
     pPosAnimation4->setDuration(3000);
     pPosAnimation4->setStartValue(QPoint(center_line, start_line-interval*3));
@@ -211,41 +211,82 @@ void MainWindow::setMoveUp(bool up)
         pPosAnimation1->setEasingCurve(QEasingCurve::InOutQuad);
     }
 
-/*
+
     control_floor=2;
 
     if(offset1==0)
     {
         pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
         pPosAnimation2->setDuration(3000);
-        pPosAnimation2->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
-        pPosAnimation2->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+
+	if(up==true)
+	{
+	        pPosAnimation2->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
+        	pPosAnimation2->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+	}
+	else
+	{
+		pPosAnimation2->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+		pPosAnimation2->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
+	}
+
         pPosAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
     }
     if(offset1==1)
     {
         pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
         pPosAnimation2->setDuration(3000);
-        pPosAnimation2->setStartValue(QPoint(center_line, start_line1));
-        pPosAnimation2->setEndValue(QPoint(center_line, stand_line));
+	
+	if(up==true)
+	{
+        	pPosAnimation2->setStartValue(QPoint(center_line, start_line1));
+        	pPosAnimation2->setEndValue(QPoint(center_line, stand_line));
+	}
+	else
+	{
+		pPosAnimation2->setStartValue(QPoint(center_line, stand_line));
+		pPosAnimation2->setEndValue(QPoint(center_line, start_line1));
+	}
+
         pPosAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
     }
     else if(offset1==2)
     {
         pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
         pPosAnimation2->setDuration(3000);
-        pPosAnimation2->setStartValue(QPoint(center_line, stand_line));
-        pPosAnimation2->setEndValue(QPoint(center_line, start_line2));
+
+	if(up==true)
+	{
+	        pPosAnimation2->setStartValue(QPoint(center_line, stand_line));
+        	pPosAnimation2->setEndValue(QPoint(center_line, start_line2));
+	}
+	else
+	{
+		pPosAnimation2->setStartValue(QPoint(center_line, start_line2));
+		pPosAnimation2->setEndValue(QPoint(center_line, stand_line));
+	}
+
         pPosAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
     }
     else if(offset1>=3)
     {
         pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
         pPosAnimation2->setDuration(3000);
-        pPosAnimation2->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
-        pPosAnimation2->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+
+	if(up==true)
+	{
+        	pPosAnimation2->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
+        	pPosAnimation2->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+	}
+	else
+	{
+		pPosAnimation2->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+		pPosAnimation2->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
+	}	
+
         pPosAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
     }
+
 
 
    control_floor=3; 
@@ -255,35 +296,75 @@ void MainWindow::setMoveUp(bool up)
    {
         pPosAnimation3 = new QPropertyAnimation(ui->posButton_3, "pos");
         pPosAnimation3->setDuration(3000);
-        pPosAnimation3->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
-        pPosAnimation3->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+	if(up==true)
+	{
+        	pPosAnimation3->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
+        	pPosAnimation3->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+	}
+	else
+	{
+		pPosAnimation3->setStartValue(QPoint(center_line, start_line1-(control_floor-current_floor-1)*interval));
+		pPosAnimation3->setEndValue(QPoint(center_line, start_line1-(control_floor-current_floor)*interval));
+	}
+
         pPosAnimation3->setEasingCurve(QEasingCurve::InOutQuad);
    }
    if(offset1==2)
    {
         pPosAnimation3 = new QPropertyAnimation(ui->posButton_3, "pos");
         pPosAnimation3->setDuration(3000);
-        pPosAnimation3->setStartValue(QPoint(center_line, start_line1));
-        pPosAnimation3->setEndValue(QPoint(center_line, stand_line));
+
+	if(up==true)
+	{
+        	pPosAnimation3->setStartValue(QPoint(center_line, start_line1));
+        	pPosAnimation3->setEndValue(QPoint(center_line, stand_line));
+	}
+	else
+	{
+		pPosAnimation3->setStartValue(QPoint(center_line, stand_line));
+		pPosAnimation3->setEndValue(QPoint(center_line, start_line1));
+	}
+
         pPosAnimation3->setEasingCurve(QEasingCurve::InOutQuad);
     }
     else if(offset1==3)
     {
         pPosAnimation3 = new QPropertyAnimation(ui->posButton_3, "pos");
         pPosAnimation3->setDuration(3000);
-        pPosAnimation3->setStartValue(QPoint(center_line, stand_line));
-        pPosAnimation3->setEndValue(QPoint(center_line, start_line2));
+
+	if(up==true)
+	{
+        	pPosAnimation3->setStartValue(QPoint(center_line, stand_line));
+        	pPosAnimation3->setEndValue(QPoint(center_line, start_line2));
+	}
+	else
+	{
+		pPosAnimation3->setStartValue(QPoint(center_line, start_line2));
+		pPosAnimation3->setEndValue(QPoint(center_line, stand_line));
+	}
+
         pPosAnimation3->setEasingCurve(QEasingCurve::InOutQuad);
     }
     else if(offset1>=4)
     {
         pPosAnimation3 = new QPropertyAnimation(ui->posButton_3, "pos");
         pPosAnimation3->setDuration(3000);
-        pPosAnimation3->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
-        pPosAnimation3->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+
+	if(up==true)
+	{
+        	pPosAnimation3->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
+        	pPosAnimation3->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+	}
+	else
+	{
+		pPosAnimation3->setStartValue(QPoint(center_line, start_line2+interval*(offset1-control_floor)));
+		pPosAnimation3->setEndValue(QPoint(center_line, start_line2+interval*(offset1-control_floor-1)));
+	}
+
         pPosAnimation3->setEasingCurve(QEasingCurve::InOutQuad);
     }
 
+/*
    control_floor=4;
 
    if(offset1<=2)
@@ -407,8 +488,8 @@ void MainWindow::on_startButton_clicked()
     setMove();
 
     pPosAnimation1->start();
-//    pPosAnimation2->start();
-//    pPosAnimation3->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
 //    pPosAnimation4->start();
 //    pPosAnimation5->start();
 
@@ -429,8 +510,8 @@ void MainWindow::on_startButton_3_clicked()
     setMoveUp(true);
 
     pPosAnimation1->start();
- //   pPosAnimation2->start();
-//    pPosAnimation3->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
 //    pPosAnimation4->start();
 //    pPosAnimation5->start();
 
@@ -456,8 +537,8 @@ void MainWindow::on_startButton_2_clicked()
     end_line=end_line-interval;
 
     pPosAnimation1->start();
- //   pPosAnimation2->start();
-//    pPosAnimation3->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
 //    pPosAnimation4->start();
 //    pPosAnimation5->start();
 
