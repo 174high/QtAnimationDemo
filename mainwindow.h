@@ -27,6 +27,11 @@ private slots:
     void on_startButton_4_clicked();
 
 private:
+
+    int start_line1;
+    int start_line2;
+    int stand_line;
+
     int center_line; 
     int start_line;
     int end_line;
