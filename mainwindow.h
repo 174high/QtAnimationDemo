@@ -19,7 +19,7 @@ public:
 
 private slots:
     void setMove();
-    void setMoveUp();
+    void setMoveUp(bool up);
     void setMoveDown();
     void on_startButton_clicked();
     void on_startButton_2_clicked();
