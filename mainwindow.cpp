@@ -57,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->posButton_4->setGeometry(QRect(center_line, start_line-interval*3, floor_long, floor_width));
     ui->posButton_5->setGeometry(QRect(center_line, start_line-interval*4, floor_long, floor_width));
  
+    ui->currentFloorButton->setGeometry(QRect(78, 198, 80, 70));
+
     timer = new QTimer(this) ;
     connect(timer, SIGNAL(timeout()), this, SLOT(updateAction()));
 
@@ -73,6 +75,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setMove();
 
+    ui->posButton_1->raise();
+    ui->posButton_2->raise();
+    ui->posButton_3->raise();
+    ui->posButton_4->raise();
+    ui->posButton_5->raise();
+
+    ui->posButton_1->setStyleSheet("background-color:transparent;color:white");
+    ui->posButton_2->setStyleSheet("background-color:transparent;color:white");
+    ui->posButton_3->setStyleSheet("background-color:transparent;color:white");
+    ui->posButton_4->setStyleSheet("background-color:transparent;color:white");
+    ui->posButton_5->setStyleSheet("background-color:transparent;color:white");
 
     pPosAnimation1->start();
     pPosAnimation2->start();
@@ -527,7 +540,7 @@ void MainWindow::setMoveUp(bool up)
         pPosAnimation5->setEasingCurve(QEasingCurve::InOutQuad);
     }
 
-    timer->start(1000);
+    timer->start(2000);
 
 }
 
@@ -545,58 +558,52 @@ void MainWindow::updateAction()
 
     if(current_floor==1)
     {
+	
     	ui->posButton_1->setFont(font);
-        ui->posButton_1->setStyleSheet("background-color:red;color:white");
+
     }
     else
     {
+
 	ui->posButton_1->setFont(font2);
-        ui->posButton_1->setStyleSheet("background-color:black;color:white");
+
     }
 
     if(current_floor==2)
     {
 	ui->posButton_2->setFont(font);
-        ui->posButton_2->setStyleSheet("background-color:red;color:white");
     }
     else
     {
         ui->posButton_2->setFont(font2);
-	ui->posButton_2->setStyleSheet("background-color:black;color:white");
     }
 
     if(current_floor==3)
     {
         ui->posButton_3->setFont(font);
- 	ui->posButton_3->setStyleSheet("background-color:red;color:white");
     }
     else
     {
 	ui->posButton_3->setFont(font2);
-	ui->posButton_3->setStyleSheet("background-color:black;color:white");
     }
 
     if(current_floor==4)
     {
         ui->posButton_4->setFont(font);
-	ui->posButton_4->setStyleSheet("background-color:red;color:white");
     } 
     else
     {
         ui->posButton_4->setFont(font2);
-	ui->posButton_4->setStyleSheet("background-color:black;color:white");
     }
 
 
     if(current_floor==5)
     {
         ui->posButton_5->setFont(font);
- 	ui->posButton_5->setStyleSheet("background-color:red;color:white");
     }
     else
     {
         ui->posButton_5->setFont(font2);
-	ui->posButton_5->setStyleSheet("background-color:black;color:white");
     }
 
 

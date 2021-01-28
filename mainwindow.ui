@@ -209,7 +209,7 @@ color:white</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(0, 0, 0);
+     <string notr="true">background-color: transparent;
 border:none;
 color:white</string>
     </property>
@@ -406,6 +406,22 @@ color:white</string>
     </property>
     <property name="autoRepeatDelay">
      <number>300</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="currentFloorButton">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>180</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
