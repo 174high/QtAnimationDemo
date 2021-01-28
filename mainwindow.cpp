@@ -5,6 +5,7 @@
 #include <QSequentialAnimationGroup>
 #include <QGraphicsOpacityEffect>
 #include <QDebug>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -55,6 +56,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->posButton_3->setGeometry(QRect(center_line, start_line-interval*2, floor_long, floor_width));
     ui->posButton_4->setGeometry(QRect(center_line, start_line-interval*3, floor_long, floor_width));
     ui->posButton_5->setGeometry(QRect(center_line, start_line-interval*4, floor_long, floor_width));
+ 
+    timer = new QTimer(this) ;
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateAction()));
+
+    timer2 = new QTimer(this) ;
+    connect(timer2, SIGNAL(timeout()), this, SLOT(on_startButton_4_clicked()));
+
+//    QFont font;
+//    font.setPointSize(50);
+
+//    ui->posButton_1->setFont(font);
 
 
     ui->pushButton_current_floor->setGeometry(QRect(240, 215, 101, 31));
@@ -515,8 +527,83 @@ void MainWindow::setMoveUp(bool up)
         pPosAnimation5->setEasingCurve(QEasingCurve::InOutQuad);
     }
 
+    timer->start(1000);
 
 }
+
+void MainWindow::updateAction()
+{
+
+    qDebug() << "updateAction";
+    
+
+    QFont font;
+    font.setPointSize(50);
+
+    QFont font2;
+    font2.setPointSize(30);
+
+    if(current_floor==1)
+    {
+    	ui->posButton_1->setFont(font);
+        ui->posButton_1->setStyleSheet("background-color:red;color:white");
+    }
+    else
+    {
+	ui->posButton_1->setFont(font2);
+        ui->posButton_1->setStyleSheet("background-color:black;color:white");
+    }
+
+    if(current_floor==2)
+    {
+	ui->posButton_2->setFont(font);
+        ui->posButton_2->setStyleSheet("background-color:red;color:white");
+    }
+    else
+    {
+        ui->posButton_2->setFont(font2);
+	ui->posButton_2->setStyleSheet("background-color:black;color:white");
+    }
+
+    if(current_floor==3)
+    {
+        ui->posButton_3->setFont(font);
+ 	ui->posButton_3->setStyleSheet("background-color:red;color:white");
+    }
+    else
+    {
+	ui->posButton_3->setFont(font2);
+	ui->posButton_3->setStyleSheet("background-color:black;color:white");
+    }
+
+    if(current_floor==4)
+    {
+        ui->posButton_4->setFont(font);
+	ui->posButton_4->setStyleSheet("background-color:red;color:white");
+    } 
+    else
+    {
+        ui->posButton_4->setFont(font2);
+	ui->posButton_4->setStyleSheet("background-color:black;color:white");
+    }
+
+
+    if(current_floor==5)
+    {
+        ui->posButton_5->setFont(font);
+ 	ui->posButton_5->setStyleSheet("background-color:red;color:white");
+    }
+    else
+    {
+        ui->posButton_5->setFont(font2);
+	ui->posButton_5->setStyleSheet("background-color:black;color:white");
+    }
+
+
+    timer->stop();
+
+}
+
 
 void MainWindow::setMoveDown()
 {
@@ -631,9 +718,11 @@ void MainWindow::on_startButton_2_clicked()
 void MainWindow::on_startButton_4_clicked()
 {
     int b = ui->textEdit->toPlainText().toInt();
+    int offset=0; 
+    int next_floor;
 
     qDebug() << b;
-
+/*
     start_line=end_line;
     end_line=end_line-(current_floor-b)*interval;
     current_floor=b;
@@ -645,10 +734,38 @@ void MainWindow::on_startButton_4_clicked()
     pPosAnimation3->start();
     pPosAnimation4->start();
     pPosAnimation5->start();
+*/
+
+    next_floor=b;
+
+    offset=next_floor-current_floor;  
+
+    if(offset>0)
+    {
+	on_startButton_3_clicked();	
+ 	timer2->start(3000);
+    } 
+    else if(offset<0)
+    {
+	on_startButton_2_clicked();
+	timer2->start(3000);
+    }
+    else
+    {
+  	timer2->stop();
+    }
 
 
 //    m_group->setDirection(QAbstractAnimation::Forward);
 //    m_group->setLoopCount(-1);
 //    m_group->start();
 }
+
+
+
+
+
+
+
+
 

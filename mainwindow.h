@@ -20,6 +20,7 @@ public:
 private slots:
     void setMove();
     void setMoveUp(bool up);
+    void updateAction();
     void setMoveDown();
     void on_startButton_clicked();
     void on_startButton_2_clicked();
@@ -48,6 +49,9 @@ private:
     QPropertyAnimation *pPosAnimation4;
     QPropertyAnimation *pPosAnimation5;
     QParallelAnimationGroup *m_group;
+
+    QTimer *timer;
+    QTimer *timer2;
 };
 
 #endif // MAINWINDOW_H
