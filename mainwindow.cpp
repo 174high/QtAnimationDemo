@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     maximum=5; 
     current_floor=0; 
 
-    ui->textEdit->setText("1");
+    ui->textEdit->setText("5");
     ui->textEdit->show();
 
     //scale
@@ -87,11 +87,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->posButton_4->setStyleSheet("background-color:transparent;color:white");
     ui->posButton_5->setStyleSheet("background-color:transparent;color:white");
 
+    ui->posButton_10->setFocus();
+
     pPosAnimation1->start();
     pPosAnimation2->start();
     pPosAnimation3->start();
     pPosAnimation4->start();
     pPosAnimation5->start();
+
+    MainWindow::on_startButton_4_clicked();
 
 //    QPropertyAnimation *pPosAnimation2 = new QPropertyAnimation(ui->posButton, "pos");
 //    pPosAnimation2->setDuration(1000);
