@@ -22,6 +22,7 @@ private slots:
     void setMoveUp(bool up);
     void updateAction();
     void setMoveDown();
+    void bookedFloorsAction();
     void on_startButton_clicked();
     void on_startButton_2_clicked();
     void on_startButton_3_clicked();
@@ -42,6 +43,23 @@ private:
     unsigned char current_floor; 
     unsigned char maximum;
 
+    int booked_fixxed_line1;
+    int booked_start1_line1;   
+    int booked_start1_line2; 
+    int booked_start1_line3;
+    int booked_start1_line4;
+
+    int booked_fixxed_line2;
+    int booked_start2_line1;
+    int booked_start2_line2;
+    int booked_start2_line3;
+    int booked_start2_line4;
+
+    unsigned char next_booked_floors_num;
+    unsigned char current_booked_floors_num;
+
+    unsigned char booked_floors[30]; 
+
     Ui::MainWindow *ui;
     QPropertyAnimation *pPosAnimation1;
     QPropertyAnimation *pPosAnimation2;
@@ -49,6 +67,9 @@ private:
     QPropertyAnimation *pPosAnimation4;
     QPropertyAnimation *pPosAnimation5;
     QParallelAnimationGroup *m_group;
+
+    QPropertyAnimation *pPosAnimation_booked1;
+    QPropertyAnimation *pPosAnimation_booked2;
 
     QTimer *timer;
     QTimer *timer2;
