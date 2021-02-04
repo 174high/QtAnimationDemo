@@ -5,6 +5,8 @@
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 
+enum status{up,down,runing,stop} ; 
+
 namespace Ui {
 class MainWindow;
 }
@@ -29,6 +31,7 @@ private slots:
     void on_startButton_4_clicked();
 
 private:
+    enum status car_status; 
 
     int start_line1;
     int start_line2;

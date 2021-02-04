@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>836</width>
-    <height>504</height>
+    <width>834</width>
+    <height>497</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -439,8 +439,8 @@ color:white</string>
      <rect>
       <x>390</x>
       <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <width>50</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -451,7 +451,7 @@ color:white</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>30</pointsize>
+      <pointsize>50</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -478,10 +478,10 @@ color:white</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>470</x>
+      <y>220</y>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -519,10 +519,10 @@ color:white</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>540</x>
+      <y>230</y>
+      <width>30</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -560,10 +560,10 @@ color:white</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>600</x>
+      <y>240</y>
+      <width>20</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -595,250 +595,52 @@ color:white</string>
      <number>300</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="posButton_15">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>260</x>
+      <y>260</y>
+      <width>56</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(59, 59, 59);
-border:none;
-color:white</string>
+     <string notr="true">background-color: rgb(255, 43, 15);</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
+     <string>UP</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="posButton_16">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>260</x>
+      <y>300</y>
+      <width>56</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color:  rgb(59, 59, 59);
-border:none;
-color:white</string>
+     <string notr="true">background-color:rgb(255, 255, 255)</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
+     <string>DOWN</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="posButton_17">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
+      <x>260</x>
+      <y>340</y>
+      <width>56</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color:  rgb(59, 59, 59);
-border:none;
-color:white</string>
+     <string notr="true">background-color:rgb(255, 255, 255)</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="posButton_18">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>210</y>
-      <width>41</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(59, 59, 59);
-border:none;
-color:white</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="posButton_19">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>280</y>
-      <width>41</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(59, 59, 59);
-border:none;
-color:white</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="posButton_20">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>280</y>
-      <width>41</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(59, 59, 59);
-border:none;
-color:white</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>12</width>
-      <height>12</height>
-     </size>
-    </property>
-    <property name="autoRepeatDelay">
-     <number>300</number>
+     <string>STOP</string>
     </property>
    </widget>
   </widget>
@@ -847,7 +649,7 @@ color:white</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>836</width>
+     <width>834</width>
      <height>18</height>
     </rect>
    </property>
