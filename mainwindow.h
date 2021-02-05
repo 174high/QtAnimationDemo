@@ -76,6 +76,12 @@ private:
 
     QTimer *timer;
     QTimer *timer2;
+    QTimer *timer3;
+
+    QFont booked1_font;
+    QFont booked2_font;
+    QFont booked3_font;
+    QFont booked4_font;
 };
 
 #endif // MAINWINDOW_H
