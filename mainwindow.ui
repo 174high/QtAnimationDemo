@@ -595,7 +595,7 @@ color:white</string>
      <number>300</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_up">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -611,7 +611,7 @@ color:white</string>
      <string>UP</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="pushButton_down">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -627,7 +627,7 @@ color:white</string>
      <string>DOWN</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_stop">
     <property name="geometry">
      <rect>
       <x>260</x>

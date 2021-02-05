@@ -24,6 +24,8 @@ private slots:
     void setMoveUp(bool up);
     void updateAction();
     void setMoveDown();
+    void carStopIndicator();
+    void carStatusIndicator();
     void bookedFloorsAction();
     void on_startButton_clicked();
     void on_startButton_2_clicked();
@@ -44,6 +46,7 @@ private:
     unsigned int floor_long;
     unsigned int floor_width; 
     unsigned char current_floor; 
+    unsigned char next_floor;
     unsigned char maximum;
 
     int booked_fixxed_line1;
@@ -77,6 +80,8 @@ private:
     QTimer *timer;
     QTimer *timer2;
     QTimer *timer3;
+    QTimer *timer4;
+    QTimer *timer5;
 
     QFont booked1_font;
     QFont booked2_font;
