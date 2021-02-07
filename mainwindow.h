@@ -61,6 +61,7 @@ private:
     int booked_start2_line3;
     int booked_start2_line4;
 
+    unsigned char booked_num;
     unsigned char next_booked_floors_num;
     unsigned char current_booked_floors_num;
 

@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setStyleSheet("background-color:black;");
 //    ui->posButton_1->setStyleSheet("background-color:black;");
  
-    car_status=stop ; 
- 
     start_line1=130 ;
     start_line2=270 ;
     stand_line=200  ;
@@ -32,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     maximum=5; 
     current_floor=0; 
+    booked_num=0;
+
 
     booked_fixxed_line1=10;
     booked_start1_line1=80;
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     booked_start2_line2=120;
 
 
-    ui->textEdit->setText("5");
+    ui->textEdit->setText("4");
     ui->textEdit->show();
 
     pPosAnimation1 = new QPropertyAnimation(ui->posButton_1, "pos");
@@ -62,24 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
     {
 	booked_floors[i]=255;
     }
-
-    //scale
-/*    QPropertyAnimation *pScaleAnimation1 = new QPropertyAnimation(ui->scaleButton, "geometry");
-    pScaleAnimation1->setDuration(1000);
-    pScaleAnimation1->setStartValue(QRect(190, 230, 0, 0));
-    pScaleAnimation1->setEndValue(QRect(120, 160, 140, 140));
-    pScaleAnimation1->setEasingCurve(QEasingCurve::InOutQuad);
-
-    QPropertyAnimation *pScaleAnimation2 = new QPropertyAnimation(ui->scaleButton, "geometry");
-    pScaleAnimation2->setDuration(1000);
-    pScaleAnimation2->setStartValue(QRect(120, 160, 140, 140));
-    pScaleAnimation2->setEndValue(QRect(190, 230, 0, 0));
-    pScaleAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
-
-    QSequentialAnimationGroup *pScaleGroup = new QSequentialAnimationGroup(this);
-    pScaleGroup->addAnimation(pScaleAnimation1);
-    pScaleGroup->addAnimation(pScaleAnimation2);
-*/
 
     ui->posButton_1->setGeometry(QRect(center_line, start_line, floor_long, floor_width));
     ui->posButton_2->setGeometry(QRect(center_line, start_line-interval*1, floor_long, floor_width));
@@ -158,51 +140,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
     ui->posButton_11->setFont(booked1_font);
  
-    car_status=runing; 
+    car_status=stop; 
     ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ;
 
 
-//    ui->posButton_12->setText("7");
-//    ui->posButton_12->setFont(booked2_font);
-
-
-//    QPropertyAnimation *pPosAnimation2 = new QPropertyAnimation(ui->posButton, "pos");
-//    pPosAnimation2->setDuration(1000);
-//    pPosAnimation2->setStartValue(QPoint(360, 350));
-//    pPosAnimation2->setEndValue(QPoint(360, 160));
-//    pPosAnimation2->setEasingCurve(QEasingCurve::InOutQuad);
-
-//    QSequentialAnimationGroup *pPosGroup = new QSequentialAnimationGroup(this);
-//    pPosGroup->addPause(500);
-//    pPosGroup->addAnimation(pPosAnimation1);
-
-
-//    pPosGroup->addAnimation(pPosAnimation2);
-
-    //opacity
-/*    QGraphicsOpacityEffect *pButtonOpacity = new QGraphicsOpacityEffect(this);
-    pButtonOpacity->setOpacity(1);
-    ui->opasityButton->setGraphicsEffect(pButtonOpacity);
-
-    QPropertyAnimation *pOpacityAnimation1 = new QPropertyAnimation(pButtonOpacity, "opacity");
-    pOpacityAnimation1->setDuration(1000);
-    pOpacityAnimation1->setStartValue(1);
-    pOpacityAnimation1->setEndValue(0);
-
-    QPropertyAnimation *pOpacityAnimation2 = new QPropertyAnimation(pButtonOpacity, "opacity");
-    pOpacityAnimation2->setDuration(1000);
-    pOpacityAnimation2->setStartValue(0);
-    pOpacityAnimation2->setEndValue(1);
-
-    QSequentialAnimationGroup *pOpacityGroup = new QSequentialAnimationGroup(this);
-    pOpacityGroup->addPause(1000);
-    pOpacityGroup->addAnimation(pOpacityAnimation1);
-    pOpacityGroup->addAnimation(pOpacityAnimation2);
-*/
-//    m_group = new QParallelAnimationGroup(this);
-//    m_group->addAnimation(pScaleGroup);
-//    m_group->addAnimation(pPosGroup);
- //   m_group->addAnimation(pOpacityGroup);
 }
 
 MainWindow::~MainWindow()
@@ -620,7 +561,7 @@ void MainWindow::setMoveUp(bool up)
 void MainWindow::updateAction()
 {
 
-    qDebug() << "updateAction";
+//    qDebug() << "updateAction";
     
 
     QFont font;
@@ -800,22 +741,24 @@ void MainWindow::on_startButton_4_clicked()
     int b = ui->textEdit->toPlainText().toInt();
     int offset=0; 
 
-    qDebug() << b;
-/*
-    start_line=end_line;
-    end_line=end_line-(current_floor-b)*interval;
-    current_floor=b;
-
-    setMove();
-
-    pPosAnimation1->start();
-    pPosAnimation2->start();
-    pPosAnimation3->start();
-    pPosAnimation4->start();
-    pPosAnimation5->start();
-*/
+    qDebug() <<"add new floor:"<< b;
 
     next_floor=b;
+
+    if(car_status==up)
+    {
+        if(next_floor<current_floor)
+        {
+    		return;              
+        }       
+    }
+    else if(car_status==down)
+    {
+	if(next_floor>current_floor)
+        {
+                return;
+        }
+    }    
 
     offset=next_floor-current_floor;  
 
@@ -834,37 +777,55 @@ void MainWindow::on_startButton_4_clicked()
   	timer2->stop();
     }
 
-  
-    if(car_status==up)
-    {
-
-
-
-
-    }    
-
-
-    
-/*  
+    bool new_floor=true;       
 
     for(unsigned char i=0;i<maximum;i++)
     {
+	if(next_floor==booked_floors[i])
+	{
+	    new_floor=false; 	
+	}
+    }
 
+    if(new_floor==true)
+    {
+	qDebug() << "add floor:" << next_floor ;
+	booked_floors[booked_num++]=next_floor; 
+    	next_booked_floors_num++ ;
+    }
+
+    for(unsigned char i=0;i<maximum;i++)
+    {
         if(booked_floors[i]!=255)
         {
-	 	if(next_floor!=booked_floors[i])
-		{
-			next_booked_floors_num=2;
-		}
+	    qDebug() << "----------------" ;
+	    qDebug() << "booked num:" << booked_num ;  
+	    qDebug() << "Booked floor:" << booked_floors[i] ;	
+	
+	    if(car_status==up)
+    	    {
+        	if(booked_floors[i]<current_floor)
+        	{
+			booked_floors[i]=255;
+			booked_num--;
+        	}
+    	    }
+    	    else if(car_status==down)
+    	    {
+        	if(booked_floors[i]>current_floor)
+            	{
+			booked_floors[i]=255;
+                        booked_num--;
+        	}
+    	    }
+	    else if(car_status==stop)
+            {
+		booked_floors[i]=255;
+	        booked_num--;
+	    }
         }
-
     }
-*/
 
-
-//    m_group->setDirection(QAbstractAnimation::Forward);
-//    m_group->setLoopCount(-1);
-//    m_group->start();
 }
 
 void MainWindow::carStopIndicator()
@@ -876,40 +837,49 @@ void MainWindow::carStopIndicator()
 void MainWindow::carStatusIndicator()
 {
 
-    qDebug() << current_floor << " " << next_floor  ;
+//    qDebug() << current_floor << " " << next_floor  ;
 
     if(current_floor < next_floor)
     {
         ui->pushButton_up->setStyleSheet("background-color: rgb(255, 43, 15);") ;
         ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
         ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+
+	car_status=up; 
     }
     else if(current_floor == next_floor)
     {
    	ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ; 
         ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
         ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ; 
+
+	car_status=stop;
     }
     else
     {
 	 ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
          ui->pushButton_down->setStyleSheet("background-color: rgb(255, 43, 15);") ;
          ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+
+	car_status=down; 
     }
 
 }
 
 void MainWindow::bookedFloorsAction()
 {
-    qDebug() << "bookedFloorsAction" ;
+//    qDebug() << "bookedFloorsAction" ;
 
-    qDebug() << current_floor << " " << next_floor  ;
+//    qDebug() << "floor" <<current_floor << " " << next_floor  ;
+
+//    qDebug() << "floor number" <<current_booked_floors_num << " " << next_booked_floors_num  ;
 
     if(next_booked_floors_num>=current_booked_floors_num)
     {
 
     if((next_booked_floors_num==1)&&(current_booked_floors_num==1))
     {
+
     	ui->posButton_11->setText(ui->textEdit->toPlainText());
     	ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
     	ui->posButton_11->setFont(booked1_font);
@@ -942,32 +912,7 @@ void MainWindow::bookedFloorsAction()
     
     }
 
-    
-    if(next_booked_floors_num<current_booked_floors_num)
-    {
 
-        if((next_booked_floors_num==1)&&(current_booked_floors_num==2))
-    	{
-        pPosAnimation_booked1->setDuration(3000);
-        pPosAnimation_booked1->setStartValue(QPoint(booked_start1_line2,booked_fixxed_line1));
-        pPosAnimation_booked1->setEndValue(QPoint(booked_start1_line1,booked_fixxed_line1));
-        pPosAnimation_booked1->setEasingCurve(QEasingCurve::InOutQuad);
-
-
-        pPosAnimation_booked2->setDuration(3000);
-	pPosAnimation_booked2->setStartValue(QPoint(booked_start2_line2,booked_fixxed_line2));
-	pPosAnimation_booked2->setEndValue(QPoint(booked_start2_line1,booked_fixxed_line2));
-        pPosAnimation_booked2->setEasingCurve(QEasingCurve::InOutQuad);
-
-        pPosAnimation_booked1->start();
-        pPosAnimation_booked2->start();
-
-        current_booked_floors_num=3;
-
-    	}
-
-
-    }
 
 
 /*
