@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
+#include <string>
+
+using namespace std;
 
 enum status{up,down,runing,stop} ; 
 
@@ -31,6 +34,10 @@ private slots:
     void on_startButton_2_clicked();
     void on_startButton_3_clicked();
     void on_startButton_4_clicked();
+
+    string to_String(int n);
+    void sortA1(int a[], int length);
+    void sortA2(int a[], int length);
 
 private:
     enum status car_status; 

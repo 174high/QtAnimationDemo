@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <QTimer>
 #include <unistd.h>
+#include <iostream>   // std::cout  
+#include <string> 
+#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     center_line=80 ; 
     start_line=-600 ;
     end_line= 130; 
-//    current_floor_line= ;
     interval=50;     
     floor_long=71;
     floor_width=61; 
@@ -31,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     maximum=5; 
     current_floor=0; 
     booked_num=0;
-
+    current_booked_floors_num=0;
 
     booked_fixxed_line1=10;
     booked_start1_line1=80;
@@ -73,30 +75,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer = new QTimer(this) ;
     connect(timer, SIGNAL(timeout()), this, SLOT(updateAction()));
-
     timer2 = new QTimer(this) ;
     connect(timer2, SIGNAL(timeout()), this, SLOT(on_startButton_4_clicked()));
-
     timer3 = new QTimer(this) ;
     connect(timer3, SIGNAL(timeout()), this, SLOT(bookedFloorsAction()));
-
     timer3->start(500);
- 
     timer4 = new QTimer(this) ;
     connect(timer4, SIGNAL(timeout()), this, SLOT(carStatusIndicator()));
-
     timer4->start(200);
-
     timer5 = new QTimer(this) ;
     connect(timer5, SIGNAL(timeout()), this, SLOT(carStopIndicator()));
-
 
 //    QFont font;
 //    font.setPointSize(50);
 
 //    ui->posButton_1->setFont(font);
-
-
     ui->pushButton_current_floor->setGeometry(QRect(240, 215, 101, 31));
 
     setMove();
@@ -125,17 +118,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->posButton_11->raise();
 
-    booked_floors[0]=2; 
+    booked_floors[0]=4; 
 
-    for(unsigned char i=0;i<maximum;i++)
-    {
-        if(booked_floors[i]!=255)
-        {
-		current_booked_floors_num=1;
-    		next_booked_floors_num=1;
-	}
-
-    }
     ui->posButton_11->setText(ui->textEdit->toPlainText());
     ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
     ui->posButton_11->setFont(booked1_font);
@@ -791,7 +775,6 @@ void MainWindow::on_startButton_4_clicked()
     {
 	qDebug() << "add floor:" << next_floor ;
 	booked_floors[booked_num++]=next_floor; 
-    	next_booked_floors_num++ ;
     }
 
     for(unsigned char i=0;i<maximum;i++)
@@ -866,6 +849,83 @@ void MainWindow::carStatusIndicator()
 
 }
 
+string MainWindow::to_String(int n)
+{
+     int m = n;
+     char s[100];
+     char ss[100];
+     int i=0,j=0;
+     if (n < 0)
+     {
+         m = 0 - m;
+         j = 1;
+         ss[0] = '-';
+     }    
+     while (m>0)
+     {
+         s[i++] = m % 10 + '0';
+         m /= 10;
+     }
+     s[i] = '\0';
+     i = i - 1;
+     while (i >= 0)
+     {
+         ss[j++] = s[i--];
+     }    
+     ss[j] = '\0';    
+     return ss;
+}
+
+
+void MainWindow::sortA1(int a[], int length){
+
+    int i, j, temp;
+
+    for(i = 0; i < length; ++i){
+
+        for(j = i + 1; j < length; ++j){
+
+            if(a[j] < a[i]){    //如果后一个元素小于前一个元素则交换
+
+                temp = a[i];
+
+                a[i] = a[j];
+
+                a[j] = temp;
+
+            }
+
+        }
+    }
+
+}
+
+
+void MainWindow::sortA2(int a[], int length){
+
+    int i, j, temp;
+
+    for(i = 0; i < length; ++i){
+
+        for(j = length - 1; j > i; --j){
+
+            if(a[j] > a[j - 1]){
+                
+                temp = a[j];
+
+                a[j] = a[j - 1];
+
+                a[j - 1] = temp;
+
+            }
+        }
+
+    }
+
+}
+
+
+
 void MainWindow::bookedFloorsAction()
 {
 //    qDebug() << "bookedFloorsAction" ;
@@ -873,59 +933,113 @@ void MainWindow::bookedFloorsAction()
 //    qDebug() << "floor" <<current_floor << " " << next_floor  ;
 
 //    qDebug() << "floor number" <<current_booked_floors_num << " " << next_booked_floors_num  ;
-
-    if(next_booked_floors_num>=current_booked_floors_num)
-    {
-
-    if((next_booked_floors_num==1)&&(current_booked_floors_num==1))
-    {
-
-    	ui->posButton_11->setText(ui->textEdit->toPlainText());
-    	ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
-    	ui->posButton_11->setFont(booked1_font);
-
-    }
-    if((next_booked_floors_num==2)&&(current_booked_floors_num==1))
-    {	
-	ui->posButton_12->setGeometry(QRect(140, 20, 50, 50));
-    	ui->posButton_12->setText("5");
-
-	current_booked_floors_num=2;
-    }
-    if((next_booked_floors_num==2)&&(current_booked_floors_num==2))
-    {
-    	pPosAnimation_booked1->setDuration(3000);
-    	pPosAnimation_booked1->setStartValue(QPoint(booked_start1_line1,booked_fixxed_line1));
-    	pPosAnimation_booked1->setEndValue(QPoint(booked_start1_line2,booked_fixxed_line1));
-    	pPosAnimation_booked1->setEasingCurve(QEasingCurve::InOutQuad);
-
-	pPosAnimation_booked2->setDuration(3000);
-     	pPosAnimation_booked2->setStartValue(QPoint(booked_start2_line1,booked_fixxed_line2));
-    	pPosAnimation_booked2->setEndValue(QPoint(booked_start2_line2,booked_fixxed_line2));
-    	pPosAnimation_booked2->setEasingCurve(QEasingCurve::InOutQuad);
-
-    	pPosAnimation_booked1->start();
-	pPosAnimation_booked2->start();
-
-	current_booked_floors_num=3;
-    }
-    
-    }
-
-
-
+  
+    qDebug() << "bookedFloorsActioni booked num:" << booked_num << "current num:" << current_booked_floors_num ;
 
 /*
-    pPosAnimation_booked2->setDuration(3000);
-    pPosAnimation_booked2->setStartValue(QPoint(booked_start2_line1,booked_fixxed_line2));
-    pPosAnimation_booked2->setEndValue(QPoint(booked_start2_line2,booked_fixxed_line2));
-    pPosAnimation_booked2->setEasingCurve(QEasingCurve::InOutQuad);
+    if(booked_num>current_booked_floors_num)
+    {
+ 	current_booked_floors_num++;								
+    }
+*/
+   
+    
+    for(unsigned char i=0;i<maximum;i++)
+    {
+        if(booked_floors[i]!=255)
+        {
+            qDebug() << "**************" ;
+            qDebug() << "booked num:" << booked_num ;
+            qDebug() << "Booked floor:" << booked_floors[i] << " " << i ;
+	}
+    }
+
+   //sortA1((int*)booked_floors,(int)maximum);   
+
+
+
+    if(booked_num==0)
+    {
+	ui->posButton_11->setGeometry(QRect(1000, 10, 70, 70));
+	ui->posButton_12->setGeometry(QRect(1000, 10, 70, 70));
+    }        
+    else if(booked_num==1)
+    {
+        ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+        ui->posButton_11->setFont(booked1_font);
+
+  	for(unsigned char i=0;i<maximum;i++)
+    	{
+        	if(booked_floors[i]!=255)
+        	{
+		        std::string s= to_String(booked_floors[i]);
+        		ui->posButton_11->setText(s.c_str());
+		}
+	}
+
+	ui->posButton_12->setGeometry(QRect(1000, 10, 70, 70));
+    }
+    else if(booked_num==2)
+    {
+	ui->posButton_11->setText(ui->textEdit->toPlainText());
+        ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+        ui->posButton_11->setFont(booked1_font);
+
+	std::string s= to_String(booked_floors[0]);
+
+        ui->posButton_11->setText(s.c_str());
+
+	ui->posButton_12->setGeometry(QRect(140, 20, 50, 50));
+
+	std::string s1= to_String(booked_floors[1]);
+
+        ui->posButton_12->setText(s1.c_str());
+    }
+    
+ 
+/*	
+ 
+    if(next_booked_floors_num>=current_booked_floors_num)
+    {
+	if((next_booked_floors_num==1)&&(current_booked_floors_num==1))
+        {
+                ui->posButton_11->setText(ui->textEdit->toPlainText());
+                ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+                ui->posButton_11->setFont(booked1_font);
+        }
+    	if((next_booked_floors_num==1)&&(current_booked_floors_num==1))
+    	{
+    		ui->posButton_11->setText(ui->textEdit->toPlainText());
+    		ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+    		ui->posButton_11->setFont(booked1_font);
+    	}
+    	if((next_booked_floors_num==2)&&(current_booked_floors_num==1))
+    	{	
+		ui->posButton_12->setGeometry(QRect(140, 20, 50, 50));
+    		ui->posButton_12->setText("5");
+		current_booked_floors_num=2;
+    	}
+    	if((next_booked_floors_num==2)&&(current_booked_floors_num==2))
+    	{
+    		pPosAnimation_booked1->setDuration(3000);
+    		pPosAnimation_booked1->setStartValue(QPoint(booked_start1_line1,booked_fixxed_line1));
+    		pPosAnimation_booked1->setEndValue(QPoint(booked_start1_line2,booked_fixxed_line1));
+    		pPosAnimation_booked1->setEasingCurve(QEasingCurve::InOutQuad);
+
+		pPosAnimation_booked2->setDuration(3000);
+     		pPosAnimation_booked2->setStartValue(QPoint(booked_start2_line1,booked_fixxed_line2));
+    		pPosAnimation_booked2->setEndValue(QPoint(booked_start2_line2,booked_fixxed_line2));
+    		pPosAnimation_booked2->setEasingCurve(QEasingCurve::InOutQuad);
+
+    		pPosAnimation_booked1->start();
+		pPosAnimation_booked2->start();
+
+		current_booked_floors_num=3;
+    	}
+    }
+
 */
 
-
-  //  pPosAnimation_booked1->start();
-
-  //  pPosAnimation_booked2->start();
 
 }
 
