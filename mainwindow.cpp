@@ -728,22 +728,7 @@ void MainWindow::on_startButton_4_clicked()
     qDebug() <<"add new floor:"<< b;
 
     next_floor=b;
-/*
-    if(car_status==up)
-    {
-        if(next_floor<current_floor)
-        {
-    		return;              
-        }       
-    }
-    else if(car_status==down)
-    {
-	if(next_floor>current_floor)
-        {
-                return;
-        }
-    }    
-*/
+
     offset=next_floor-current_floor;  
 
     if(offset>0)
@@ -782,6 +767,11 @@ void MainWindow::on_startButton_4_clicked()
 
 void MainWindow::carStopIndicator()
 {
+	ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+        ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+        ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ;
+
+	car_status=stop;
 
 	timer5->stop();
 }
@@ -801,11 +791,7 @@ void MainWindow::carStatusIndicator()
     }
     else if(current_floor == next_floor)
     {
-   	ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ; 
-        ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
-        ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ; 
-
-	car_status=stop;
+	timer5->start();
     }
     else
     {
@@ -823,6 +809,7 @@ void MainWindow::carStatusIndicator()
             qDebug() << "----------------" ;
             qDebug() << "booked num:" << booked_num ;  
             qDebug() << "Booked floor:" << booked_floors[i]<<"current floor:"<<current_floor ;
+	    qDebug() << "----------------" ;
 
             if(car_status==up)
             {
@@ -953,6 +940,7 @@ void MainWindow::bookedFloorsAction()
             qDebug() << "**************" ;
             qDebug() << "booked num:" << booked_num ;
             qDebug() << "Booked floor:" << booked_floors[i] << " " << i ;
+	    qDebug() << "**************" ;
 	}
     }
 
