@@ -728,7 +728,7 @@ void MainWindow::on_startButton_4_clicked()
     qDebug() <<"add new floor:"<< b;
 
     next_floor=b;
-
+/*
     if(car_status==up)
     {
         if(next_floor<current_floor)
@@ -743,7 +743,7 @@ void MainWindow::on_startButton_4_clicked()
                 return;
         }
     }    
-
+*/
     offset=next_floor-current_floor;  
 
     if(offset>0)
@@ -777,37 +777,6 @@ void MainWindow::on_startButton_4_clicked()
 	booked_floors[booked_num++]=next_floor; 
     }
 
-    for(unsigned char i=0;i<maximum;i++)
-    {
-        if(booked_floors[i]!=255)
-        {
-	    qDebug() << "----------------" ;
-	    qDebug() << "booked num:" << booked_num ;  
-	    qDebug() << "Booked floor:" << booked_floors[i] ;	
-	
-	    if(car_status==up)
-    	    {
-        	if(booked_floors[i]<current_floor)
-        	{
-			booked_floors[i]=255;
-			booked_num--;
-        	}
-    	    }
-    	    else if(car_status==down)
-    	    {
-        	if(booked_floors[i]>current_floor)
-            	{
-			booked_floors[i]=255;
-                        booked_num--;
-        	}
-    	    }
-	    else if(car_status==stop)
-            {
-		booked_floors[i]=255;
-	        booked_num--;
-	    }
-        }
-    }
 
 }
 
@@ -846,6 +815,39 @@ void MainWindow::carStatusIndicator()
 
 	car_status=down; 
     }
+
+    for(unsigned char i=0;i<maximum;i++)
+    {
+        if(booked_floors[i]!=255)
+        {
+            qDebug() << "----------------" ;
+            qDebug() << "booked num:" << booked_num ;  
+            qDebug() << "Booked floor:" << booked_floors[i]<<"current floor:"<<current_floor ;
+
+            if(car_status==up)
+            {
+                if(booked_floors[i]<current_floor)
+                {
+                        booked_floors[i]=255;
+                        booked_num--;
+                }
+            }
+            else if(car_status==down)
+            {
+                if(booked_floors[i]>current_floor)
+                {
+                        booked_floors[i]=255;
+                        booked_num--;
+                }
+            }
+            else if(car_status==stop)
+            {
+                booked_floors[i]=255;
+                booked_num--;
+            }
+        }
+    }
+
 
 }
 
