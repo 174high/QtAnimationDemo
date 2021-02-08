@@ -767,11 +767,14 @@ void MainWindow::on_startButton_4_clicked()
 
 void MainWindow::carStopIndicator()
 {
-	ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
-        ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
-        ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ;
+	if(current_floor == next_floor)
+	{
+		ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+        	ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+        	ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ;
 
-	car_status=stop;
+		car_status=stop;
+	}
 
 	timer5->stop();
 }
@@ -791,7 +794,7 @@ void MainWindow::carStatusIndicator()
     }
     else if(current_floor == next_floor)
     {
-	timer5->start();
+	 timer5->singleShot(3000, this, SLOT(carStopIndicator()));
     }
     else
     {
