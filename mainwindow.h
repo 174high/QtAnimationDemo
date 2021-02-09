@@ -37,6 +37,8 @@ private slots:
     void carStopIndicator();
     void carStatusIndicator();
     void bookedFloorsAction();
+    void on_up();
+    void on_down();
     void on_startButton_clicked();
     void on_startButton_2_clicked();
     void on_startButton_3_clicked();

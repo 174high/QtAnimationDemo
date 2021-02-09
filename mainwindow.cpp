@@ -691,6 +691,51 @@ void MainWindow::on_startButton_clicked()
 //    m_group->start();
 }
 
+void MainWindow::on_up()
+{
+    if(current_floor>=maximum)
+    return;
+
+    start_line=end_line;
+    end_line=end_line+interval;
+    current_floor++;
+
+    setMoveUp(true);
+
+    pPosAnimation1->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
+    pPosAnimation4->start();
+    pPosAnimation5->start();
+
+//    printf("current floor=%d",ui->textEdit->toPlainText());
+
+
+//    m_group->setDirection(QAbstractAnimation::Backward);
+//    m_group->setLoopCount(1);
+//    m_group->start();
+}
+
+void MainWindow::on_down()
+{
+    if(current_floor<=0)
+    return;
+
+    start_line=end_line;
+
+    setMoveUp(false);
+
+    current_floor--;
+//    setMoveDown();
+    end_line=end_line-interval;
+
+    pPosAnimation1->start();
+    pPosAnimation2->start();
+    pPosAnimation3->start();
+    pPosAnimation4->start();
+    pPosAnimation5->start();
+}
+
 void MainWindow::on_startButton_3_clicked()
 {
     if(current_floor>=maximum)
@@ -754,12 +799,12 @@ void MainWindow::on_startButton_4_clicked()
 
     if(offset>0)
     {
-	on_startButton_3_clicked();	
+	on_up();	
         timer2->start(3000);
     } 
     else if(offset<0)
     {
-	on_startButton_2_clicked();
+	on_down();
 	timer2->start(3000);
     }
     else
