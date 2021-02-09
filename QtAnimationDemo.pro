@@ -28,4 +28,12 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h
 
+INCLUDEPATH += /home/johnny/imx6-2/imx6/thirdpartlib/opencv/install/include
+LIBS += ../../lib/libopencv_core.so \ 
+        ../../lib/libopencv_highgui.so \
+        ../../lib/libopencv_imgproc.so \
+        ../../lib/libopencv_videoio.so \
+        ../../lib/libopencv_imgcodecs.so \
+        -lpthread
+
 FORMS    += mainwindow.ui

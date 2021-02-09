@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QSequentialAnimationGroup>
@@ -18,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setStyleSheet("background-color:black;");
 //    ui->posButton_1->setStyleSheet("background-color:black;");
- 
+   
     start_line1=130 ;
     start_line2=270 ;
     stand_line=200  ;
@@ -46,6 +48,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->textEdit->setText("4");
     ui->textEdit->show();
+ 
+    Size dsize;
+    Mat img_up = imread("./resources/image/up.png");
+    dsize = Size(80, 40);
+    matData_up = Mat(dsize, CV_32S);
+    cv::resize(img_up, matData_up, dsize);
+    imgLabel_up = new QLabel(this);
+    imgLabel_up->setGeometry(75,85,80,40);
+    imgLabel_up->setStyleSheet("background-color:black;");
+
+
+    Mat img_down = imread("./resources/image/down.png");
+    dsize = Size(80, 40);
+    matData_down = Mat(dsize, CV_32S);
+    cv::resize(img_down, matData_down, dsize);
+    imgLabel_down = new QLabel(this);
+    imgLabel_down->setGeometry(75,380,80,40);
+    imgLabel_down->setStyleSheet("background-color:black;");
+
 
     pPosAnimation1 = new QPropertyAnimation(ui->posButton_1, "pos");
     pPosAnimation2 = new QPropertyAnimation(ui->posButton_2, "pos");
@@ -773,6 +794,9 @@ void MainWindow::carStopIndicator()
         	ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
         	ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 43, 15);") ;
 
+ 		imgLabel_up->setPixmap(QPixmap(""));
+        	imgLabel_down->setPixmap(QPixmap(""));
+
 		car_status=stop;
 	}
 
@@ -790,18 +814,36 @@ void MainWindow::carStatusIndicator()
         ui->pushButton_down->setStyleSheet("background-color: rgb(255, 255, 255);") ;
         ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 255, 255);") ;
 
+    	QImage img = QImage((const unsigned char *)(matData_up.data),
+                        matData_up.cols,
+                        matData_up.rows,
+                        static_cast<int>(matData_up.step),
+                        QImage::Format_RGB888);
+    	QPixmap pixmap = QPixmap(QPixmap::fromImage(img.rgbSwapped()));
+    	imgLabel_up->setPixmap(pixmap);
+	imgLabel_down->setPixmap(QPixmap(""));
+
 	car_status=up; 
     }
     else if(current_floor == next_floor)
     {
-	 timer5->singleShot(3000, this, SLOT(carStopIndicator()));
+	timer5->singleShot(3000, this, SLOT(carStopIndicator()));
     }
     else
     {
-	 ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
-         ui->pushButton_down->setStyleSheet("background-color: rgb(255, 43, 15);") ;
-         ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+	ui->pushButton_up->setStyleSheet("background-color: rgb(255, 255, 255);") ;
+        ui->pushButton_down->setStyleSheet("background-color: rgb(255, 43, 15);") ;
+        ui->pushButton_stop->setStyleSheet("background-color: rgb(255, 255, 255);") ;
 
+    	QImage img2 = QImage((const unsigned char *)(matData_down.data),
+                        matData_down.cols,
+                        matData_down.rows,
+                        static_cast<int>(matData_down.step),
+                        QImage::Format_RGB888);
+    	QPixmap pixmap2 = QPixmap(QPixmap::fromImage(img2.rgbSwapped()));
+
+    	imgLabel_down->setPixmap(pixmap2);
+	imgLabel_up->setPixmap(QPixmap(""));
 	car_status=down; 
     }
 
@@ -949,7 +991,7 @@ void MainWindow::bookedFloorsAction()
 
    //sortA1((int*)booked_floors,(int)maximum);   
 
-
+/*
 
     if(booked_num==0)
     {
@@ -989,6 +1031,68 @@ void MainWindow::bookedFloorsAction()
         ui->posButton_12->setText(s1.c_str());
     }
     
+*/
+
+    if((booked_num==0)&&(last_booked_num!=0))
+    {
+        ui->posButton_11->setGeometry(QRect(1000, 10, 70, 70));
+        ui->posButton_12->setGeometry(QRect(1000, 10, 70, 70));
+	last_booked_num=0; 
+    }        
+    else if((booked_num==1)&&(last_booked_num!=1))
+    {
+        ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+        ui->posButton_11->setFont(booked1_font);
+
+        for(unsigned char i=0;i<maximum;i++)
+        {
+                if(booked_floors[i]!=255)
+                {
+                        std::string s= to_String(booked_floors[i]);
+                        ui->posButton_11->setText(s.c_str());
+                }
+        }
+
+        ui->posButton_12->setGeometry(QRect(1000, 10, 70, 70));
+
+	last_booked_num=1; 
+    }
+    else if((booked_num==2)&&(last_booked_num!=2))
+    {
+        ui->posButton_11->setText(ui->textEdit->toPlainText());
+        ui->posButton_11->setGeometry(QRect(80, 10, 70, 70));
+        ui->posButton_11->setFont(booked1_font);
+
+        std::string s= to_String(booked_floors[0]);
+
+        ui->posButton_11->setText(s.c_str());
+
+        ui->posButton_12->setGeometry(QRect(140, 20, 50, 50));
+
+        std::string s1= to_String(booked_floors[1]);
+
+        ui->posButton_12->setText(s1.c_str());
+
+  	pPosAnimation_booked1->setDuration(3000);
+        pPosAnimation_booked1->setStartValue(QPoint(booked_start1_line1,booked_fixxed_line1));
+        pPosAnimation_booked1->setEndValue(QPoint(booked_start1_line2,booked_fixxed_line1));
+        pPosAnimation_booked1->setEasingCurve(QEasingCurve::InOutQuad);
+
+        pPosAnimation_booked2->setDuration(3000);
+        pPosAnimation_booked2->setStartValue(QPoint(booked_start2_line1,booked_fixxed_line2));
+        pPosAnimation_booked2->setEndValue(QPoint(booked_start2_line2,booked_fixxed_line2));
+        pPosAnimation_booked2->setEasingCurve(QEasingCurve::InOutQuad);
+
+        pPosAnimation_booked1->start();
+        pPosAnimation_booked2->start();
+
+
+	last_booked_num=2; 
+    }
+
+
+
+
  
 /*	
  

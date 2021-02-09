@@ -5,8 +5,15 @@
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <string>
+#include <QLabel>
+
+#include <opencv2/imgproc/imgproc_c.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv/cv.h>
 
 using namespace std;
+using namespace cv;
 
 enum status{up,down,runing,stop} ; 
 
@@ -42,6 +49,12 @@ private slots:
 private:
     enum status car_status; 
 
+    QLabel *imgLabel_up;
+    Mat matData_up;
+
+    QLabel *imgLabel_down;
+    Mat matData_down;
+
     int start_line1;
     int start_line2;
     int stand_line;
@@ -69,6 +82,7 @@ private:
     int booked_start2_line4;
 
     unsigned char booked_num;
+    unsigned char last_booked_num; 
     unsigned char next_booked_floors_num;
     unsigned char current_booked_floors_num;
 
