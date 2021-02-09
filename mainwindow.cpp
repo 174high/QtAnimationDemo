@@ -100,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer2, SIGNAL(timeout()), this, SLOT(on_startButton_4_clicked()));
     timer3 = new QTimer(this) ;
     connect(timer3, SIGNAL(timeout()), this, SLOT(bookedFloorsAction()));
-    timer3->start(500);
+    timer3->start(10);
     timer4 = new QTimer(this) ;
     connect(timer4, SIGNAL(timeout()), this, SLOT(carStatusIndicator()));
     timer4->start(200);
