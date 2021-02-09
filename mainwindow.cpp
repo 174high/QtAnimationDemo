@@ -741,24 +741,11 @@ void MainWindow::on_startButton_3_clicked()
     if(current_floor>=maximum)
     return;
 
-    start_line=end_line;
-    end_line=end_line+interval;
-    current_floor++; 
+    std::string s1= to_String(current_floor+1);
 
-    setMoveUp(true);
+    ui->textEdit->setText(s1.c_str());
 
-    pPosAnimation1->start();
-    pPosAnimation2->start();
-    pPosAnimation3->start();
-    pPosAnimation4->start();
-    pPosAnimation5->start();
-
-//    printf("current floor=%d",ui->textEdit->toPlainText());
-
-
-//    m_group->setDirection(QAbstractAnimation::Backward);
-//    m_group->setLoopCount(1);
-//    m_group->start();
+    on_startButton_4_clicked();
 }
 
 void MainWindow::on_startButton_2_clicked()
@@ -766,24 +753,11 @@ void MainWindow::on_startButton_2_clicked()
     if(current_floor<=0)
     return; 
 
-    start_line=end_line;
+    std::string s1= to_String(current_floor-1);
 
-    setMoveUp(false);
+    ui->textEdit->setText(s1.c_str());
 
-    current_floor--;
-//    setMoveDown();
-    end_line=end_line-interval;
-
-    pPosAnimation1->start();
-    pPosAnimation2->start();
-    pPosAnimation3->start();
-    pPosAnimation4->start();
-    pPosAnimation5->start();
-
-
-//    m_group->setDirection(QAbstractAnimation::Forward);
-//    m_group->setLoopCount(-1);
-//    m_group->start();
+    on_startButton_4_clicked();
 }
 
 void MainWindow::on_startButton_4_clicked()
